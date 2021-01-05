@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose') // 載入 mongoose
+const generatePassword = require('./URLcreater')
 
 
 mongoose.connect('mongodb://localhost/URLShortener', { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
@@ -18,6 +19,7 @@ db.once('open', () => {
 // 設定首頁路由
 app.get('/', (req, res) => {
     res.send('hello world')
+    console.log(generatePassword(5))
 })
 
 // 設定 port 3000

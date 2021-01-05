@@ -12,4 +12,4 @@ const shortenURL = new Schema({
         required: true // 這是個必填欄位
     }
 })
-module.exports = mongoose.model('shortenURL', shortenURLSchema)
+module.exports = mongoose.model('shortenURL', shortenURL)
