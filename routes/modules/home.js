@@ -4,10 +4,10 @@ const router = express.Router()
 const shortenURL = require('../../models/shortenURL')
 const generateURL = require('../../URLcreater')
 const website = process.env.DATABASE_URL || 'http://localhost:3000'
-
+const test = process.env
 
 router.get('/', (req, res) => {
-    res.render('index')
+    res.render('index', { test })
 })
 
 router.get('/:shortURL', async (req, res) => {

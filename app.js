@@ -4,7 +4,8 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser')
 const routes = require('./routes')
 const PORT = process.env.PORT || 3000
-const website = process.env.DATABASE_URL || 'http://localhost'
+const website = process.env.URL || 'http://localhost'
+
 
 
 require('./config/mongoose')
