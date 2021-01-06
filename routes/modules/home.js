@@ -7,6 +7,7 @@ const website = process.env.DATABASE_URL || 'http://localhost:3000'
 const test = process.env
 
 router.get('/', (req, res) => {
+    console.log(test)
     res.render('index', { test })
 })
 
