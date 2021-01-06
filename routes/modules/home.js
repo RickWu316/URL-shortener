@@ -3,15 +3,26 @@ const express = require('express')
 const router = express.Router()
 const shortenURL = require('../../models/shortenURL')
 const generateURL = require('../../URLcreater')
+const website = process.env.DATABASE_URL || 'http://localhost:3000'
 
 
 router.get('/', (req, res) => {
     res.render('index')
 })
 
+router.get('/:shortURL', async (req, res) => {
+    const reqURL = req.params.shortURL
+    // console.log(req.params)
+    await shortenURL.findOne({ shortenURL: reqURL })
+        .then(URL => {
+            res.redirect(URL.originalURL)
+            // console.log(URL.originalURL)
+        })
+})
+
 router.post('/', async (req, res) => {
     const originalURL = req.body.originalURL
-    const website = 'http://localhost:3000'
+    // const website = 'http://localhost:3000'
     let randomURL = generateURL(5)
     let randomcheck = 0
 
