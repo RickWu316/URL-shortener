@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.use(routes)
-
+app.use(express.static('public'))
 
 // 設定應用程式監聽的埠號
 app.listen(PORT, () => {

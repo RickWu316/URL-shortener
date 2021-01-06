@@ -2,10 +2,13 @@
 
     <h2>新的短網址是</h2>
 
-    <a href="{{website}}/{{URL.shortenURL}}">
+    <a href="{{website}}/{{URL.shortenURL}}" id="text">
         <h2>{{website}}/{{URL.shortenURL}}</h2>
     </a>
-
+    <button onclick="copyText()">copy</button>
     <a class="btn btn-primary" href="/" role="button">返回</a>
 
 </div>
+
+
+<textarea id="input" style="" hidden></textarea>

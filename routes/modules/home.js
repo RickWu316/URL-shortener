@@ -7,7 +7,7 @@ const website = process.env.web_URL || 'http://localhost:3000'
 
 
 router.get('/', (req, res) => {
-    res.render('index', { test })
+    res.render('index')
 })
 
 router.get('/:shortURL', async (req, res) => {
