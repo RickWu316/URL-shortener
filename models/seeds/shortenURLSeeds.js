@@ -16,11 +16,11 @@ db.once('open', async () => {
     await shortenURL.create(
         {
             originalURL: 'https://www.google.com.tw/',
-            shortenURL: 'https://123.test/'
+            shortenURL: '12345'
         },
         {
             originalURL: 'https://lighthouse.alphacamp.co/',
-            shortenURL: 'https://456.test/'
+            shortenURL: '67890'
         },
 
     )
