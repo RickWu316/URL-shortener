@@ -1,7 +1,4 @@
-// const mongoose = require('mongoose')
 const shortenURL = require('../shortenURL') // 載入 todo model
-// mongoose.connect('mongodb://localhost/URLShortener', { useNewUrlParser: true, useUnifiedTopology: true })
-// const db = mongoose.connection
 
 const db = require('../../config/mongoose')
 
