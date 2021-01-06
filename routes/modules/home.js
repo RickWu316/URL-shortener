@@ -12,11 +12,9 @@ router.get('/', (req, res) => {
 
 router.get('/:shortURL', async (req, res) => {
     const reqURL = req.params.shortURL
-    // console.log(req.params)
     await shortenURL.findOne({ shortenURL: reqURL })
         .then(URL => {
             res.redirect(URL.originalURL)
-            // console.log(URL.originalURL)
         })
 })
 
@@ -28,7 +26,6 @@ router.post('/', async (req, res) => {
 
     //check if randomURL be used
     do {
-        console.log(randomURL)
         await shortenURL.findOne({ shortenURL: randomURL })
             .lean()
             .then(URL => {
@@ -42,7 +39,6 @@ router.post('/', async (req, res) => {
                     console.log("change")
                 }
             })
-        console.log(randomcheck)
     } while (randomcheck < 1)
 
     //create URL
@@ -54,7 +50,6 @@ router.post('/', async (req, res) => {
                     .then((URL) => {
                         URL = URL.toObject() //等同於lean()的功能
                         res.render('show', { URL, website })
-                        // console.log("成功")
                     })
             } else {
                 URL = URL.toObject() //等同於lean()的功能
