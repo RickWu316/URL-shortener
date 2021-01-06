@@ -13,10 +13,16 @@ db.on('error', () => {
 db.once('open', async () => {
     console.log('mongodb connected!')
 
-    await shortenURL.create({
-        originalURL: 'https://www.google.com.tw/',
-        shortenURL: 'https://test.test/'
-    }
+    await shortenURL.create(
+        {
+            originalURL: 'https://www.google.com.tw/',
+            shortenURL: 'https://123.test/'
+        },
+        {
+            originalURL: 'https://lighthouse.alphacamp.co/',
+            shortenURL: 'https://456.test/'
+        },
+
     )
     db.close()
     console.log('done')
