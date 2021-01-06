@@ -4,7 +4,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser')
 const routes = require('./routes')
 const PORT = process.env.PORT || 3000
-const website = process.env.URL || 'http://localhost'
+const website = process.env.web_URL || 'http://localhost'
 
 
 
@@ -18,6 +18,5 @@ app.use(routes)
 
 // 設定應用程式監聽的埠號
 app.listen(PORT, () => {
-    // console.log(`App is running on http://localhost:${PORT}`)
     console.log(`App is running on  ${website}:${PORT}`)
 })
