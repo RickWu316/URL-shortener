@@ -36,10 +36,10 @@ app.get('/', (req, res) => {
 
 app.post('/', async (req, res) => {
     const originalURL = req.body.originalURL
-
+    const website = 'http://localhost:3000'
     let randomURL = generateURL(5)
-    // let randomURL = 'kolsr'
     let randomcheck = 0
+
     //check if randomURL be used
     do {
         console.log(randomURL)
@@ -51,34 +51,33 @@ app.post('/', async (req, res) => {
                     console.log("find")
                     randomURL = generateURL(5)
 
-
                 } else {
                     randomcheck = 1
                     console.log("change")
                 }
             })
         console.log(randomcheck)
-    } while (randomcheck < 0)
+    } while (randomcheck < 1)
 
     //create URL
-    // await shortenURL.findOne({ originalURL: originalURL })
-    //     .then(URL => {
-    //         console.log(URL)
-    //         if (URL === null) {
-    //             return shortenURL.create({ originalURL: originalURL, shortenURL: randomURL })
-    //                 .then((URL) => {
-    //                     URL = URL.toObject() //等同於lean()的功能
-    //                     // console.log(URL)
-    //                     res.render('show', { URL })
-    //                     console.log("成功")
-    //                 })
-    //         } else {
-    //             URL = URL.toObject() //等同於lean()的功能
-    //             console.log('網頁已存在')
-    //             console.log(URL.shortenURL)
-    //             res.render('show', { URL: URL })
-    //         }
-    //     })
+    await shortenURL.findOne({ originalURL: originalURL })
+        .then(URL => {
+            console.log(URL)
+            if (URL === null) {
+                return shortenURL.create({ originalURL: originalURL, shortenURL: randomURL })
+                    .then((URL) => {
+                        URL = URL.toObject() //等同於lean()的功能
+                        // console.log(URL)
+                        res.render('show', { URL, website })
+                        console.log("成功")
+                    })
+            } else {
+                URL = URL.toObject() //等同於lean()的功能
+                console.log('網頁已存在')
+                console.log(URL.shortenURL)
+                res.render('show', { URL, website })
+            }
+        })
 
 })
 
