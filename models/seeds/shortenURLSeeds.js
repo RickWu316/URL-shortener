@@ -1,18 +1,11 @@
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const shortenURL = require('../shortenURL') // 載入 todo model
-mongoose.connect('mongodb://localhost/URLShortener', { useNewUrlParser: true, useUnifiedTopology: true })
-const db = mongoose.connection
+// mongoose.connect('mongodb://localhost/URLShortener', { useNewUrlParser: true, useUnifiedTopology: true })
+// const db = mongoose.connection
 
-db.on('error', () => {
-    console.log('mongodb error!')
-})
-// db.once('open', () => {
-//     console.log('mongodb connected!')
-// })
+const db = require('../../config/mongoose')
 
 db.once('open', async () => {
-    console.log('mongodb connected!')
-
     await shortenURL.create(
         {
             originalURL: 'https://www.google.com.tw/',
