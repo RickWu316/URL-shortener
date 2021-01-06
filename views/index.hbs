@@ -1,8 +1,10 @@
 <div class="row mt-5 justify-content-center">
     <form action="/" method="POST">
-        <input type="text" placeholder="請輸入網址" name="originalURL">
-
-        <button type="submit" class="btn btn-success">submit</button>
+        <div>
+            <input type="text" placeholder="請輸入網址" name="originalURL">
+            {{#if error}}<p class="text-danger m-0">{{error}}</p>{{/if}}
+        </div>
+        <button type="submit" class="btn btn-success mt-2">submit</button>
     </form>
 </div>
 

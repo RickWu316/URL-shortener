@@ -20,44 +20,48 @@ router.get('/:shortURL', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const originalURL = req.body.originalURL
-    // const website = 'http://localhost:3000'
-    let randomURL = generateURL(5)
-    let randomcheck = 0
+    const error = "未輸入內容"
 
-    //check if randomURL be used
-    do {
-        await shortenURL.findOne({ shortenURL: randomURL })
-            .lean()
+    if (originalURL === "") {
+        res.render('index', { error })
+
+    } else {
+        let randomURL = generateURL(5)
+        let randomcheck = 0
+        //check if randomURL be used
+        do {
+            await shortenURL.findOne({ shortenURL: randomURL })
+                .lean()
+                .then(URL => {
+                    console.log(URL)
+                    if (URL !== null) {
+                        console.log("短網址重複")
+                        randomURL = generateURL(5)
+
+                    } else {
+                        randomcheck = 1
+                        console.log("change")
+                    }
+                })
+        } while (randomcheck < 1)
+
+        //create URL
+        await shortenURL.findOne({ originalURL: originalURL })
             .then(URL => {
                 console.log(URL)
-                if (URL !== null) {
-                    console.log("短網址重複")
-                    randomURL = generateURL(5)
-
+                if (URL === null) {
+                    return shortenURL.create({ originalURL: originalURL, shortenURL: randomURL })
+                        .then((URL) => {
+                            URL = URL.toObject() //等同於lean()的功能
+                            res.render('show', { URL, website })
+                        })
                 } else {
-                    randomcheck = 1
-                    console.log("change")
+                    URL = URL.toObject() //等同於lean()的功能
+                    console.log('網頁已存在')
+                    res.render('show', { URL, website })
                 }
             })
-    } while (randomcheck < 1)
-
-    //create URL
-    await shortenURL.findOne({ originalURL: originalURL })
-        .then(URL => {
-            console.log(URL)
-            if (URL === null) {
-                return shortenURL.create({ originalURL: originalURL, shortenURL: randomURL })
-                    .then((URL) => {
-                        URL = URL.toObject() //等同於lean()的功能
-                        res.render('show', { URL, website })
-                    })
-            } else {
-                URL = URL.toObject() //等同於lean()的功能
-                console.log('網頁已存在')
-                res.render('show', { URL, website })
-            }
-        })
-
+    }
 })
 
 
