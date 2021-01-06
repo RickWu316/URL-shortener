@@ -36,32 +36,49 @@ app.get('/', (req, res) => {
 
 app.post('/', async (req, res) => {
     const originalURL = req.body.originalURL
-    console.log(req.body)
-    let randomURL = generateURL(5)
-    console.log(URL)
-    // await shortenURL.find({ shortenURL: randomURL })
-    //     .then(URL => {
-    //         while (!URL === "") {
-    //             let randomURL = generateURL(5)
-    //             console.log(URL)
-    //         }
 
+    let randomURL = generateURL(5)
+    // let randomURL = 'kolsr'
+    let randomcheck = 0
+    //check if randomURL be used
+    do {
+        console.log(randomURL)
+        await shortenURL.findOne({ shortenURL: randomURL })
+            .lean()
+            .then(URL => {
+                console.log(URL)
+                if (URL !== null) {
+                    console.log("find")
+                    randomURL = generateURL(5)
+
+
+                } else {
+                    randomcheck = 1
+                    console.log("change")
+                }
+            })
+        console.log(randomcheck)
+    } while (randomcheck < 0)
+
+    //create URL
+    // await shortenURL.findOne({ originalURL: originalURL })
+    //     .then(URL => {
+    //         console.log(URL)
+    //         if (URL === null) {
+    //             return shortenURL.create({ originalURL: originalURL, shortenURL: randomURL })
+    //                 .then((URL) => {
+    //                     URL = URL.toObject() //等同於lean()的功能
+    //                     // console.log(URL)
+    //                     res.render('show', { URL })
+    //                     console.log("成功")
+    //                 })
+    //         } else {
+    //             URL = URL.toObject() //等同於lean()的功能
+    //             console.log('網頁已存在')
+    //             console.log(URL.shortenURL)
+    //             res.render('show', { URL: URL })
+    //         }
     //     })
-    console.log(randomURL)
-    await shortenURL.find({ originalURL: originalURL })
-        .then(URL => {
-            console.log(URL)
-            if (URL === "") {
-                console.log('網頁已存在')
-                res.render('show', { URL })
-            } else {
-                return shortenURL.create({ originalURL: originalURL, shortenURL: randomURL })
-                    .then(() => {
-                        res.redirect('/show')
-                        console.log("成功")
-                    })
-            }
-        })
 
 })
 
